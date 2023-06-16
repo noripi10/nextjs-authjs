@@ -12,12 +12,15 @@ import {
   ModalCloseButton,
   Button,
   Center,
+  Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function PostModal() {
   const router = useRouter();
+  const pathname = usePathname();
+
   return (
     <Modal isOpen={true} onClose={() => undefined} size={'2xl'}>
       <ModalOverlay />
@@ -25,14 +28,15 @@ export default function PostModal() {
         <ModalHeader>Modal Title</ModalHeader>
         {/* <ModalCloseButton /> */}
         <ModalBody>
-          <Center>
+          <Center flexDir={'column'}>
+            <Text>{pathname}</Text>
             <Image src='https://source.unsplash.com/Qe3kgY98OXs' width={500} height={500} alt='Picture of the author' />
           </Center>
         </ModalBody>
 
         <ModalFooter gap={2}>
           <Button onClick={() => router.back()}>Back</Button>
-          <Button onClick={() => window.location.reload()}>Detail</Button>
+          <Button onClick={() => location.assign(pathname)}>Detail</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from './providers';
-import { ViewSource } from './_components/view-source';
+import { Header } from './_components/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,8 +14,8 @@ export default function RootLayout({ children, modal }: { children: React.ReactN
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <ViewSource linkUrl='https://github.com/noripi10' />
         <Providers>
+          <Header />
           {children}
           {modal}
         </Providers>
