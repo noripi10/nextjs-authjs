@@ -1,34 +1,19 @@
-'use client';
+import { redirect } from 'next/navigation';
+import HomeClientPage from './_components/pages/HomeClientPage';
 
-import { Button, Center, Container, Flex } from '@chakra-ui/react';
-import Link from 'next/link';
-import { AuthSession } from './_components/AuthSession';
+const url = process.env.NEXTAUTH_URL;
+const getMe = async () => {
+  const res = await fetch(`${url}/api/auth/me`, { cache: 'no-store' });
+  const data = await res.json();
+  console.info({ data });
+  return data;
+};
 
-export default function Home() {
-  return (
-    // main
-    <Flex as='main' minH={'100vh'} flexDir={'column'}>
-      {/* container */}
-      <Flex flex={1} bgColor={'gray.300'} _dark={{ bgColor: 'gray.600' }}>
-        <Container maxW={'container.md'}>
-          <AuthSession />
-
-          <Center flexDir={'column'} gap={2}>
-            <Link passHref href={'/post/category_1/1'}>
-              <Button>Go To Post (Intersection @modal)</Button>
-            </Link>
-            <Link passHref href={'/dnd'}>
-              <Button>Go To Dnd</Button>
-            </Link>
-          </Center>
-        </Container>
-      </Flex>
-
-      <Flex as='footer' height={'40'} p={2} bgColor={'gray.800'} color={'white'}>
-        <Container>
-          <Center>Footer</Center>
-        </Container>
-      </Flex>
-    </Flex>
-  );
+export default async function Home() {
+  // ここでリダイレクトもできる
+  const me = await getMe().catch((e) => null);
+  if (!me) {
+    redirect(`${url}/dnd`);
+  }
+  return <HomeClientPage />;
 }

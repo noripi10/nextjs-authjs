@@ -2,7 +2,23 @@
 
 import { getProviders, useSession } from 'next-auth/react';
 
-import { Box, Button, Center, HStack, Image, Table, Tbody, Td, Text, Th, Thead, Tr, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  HStack,
+  Image,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
+  VStack,
+} from '@chakra-ui/react';
 import { signIn, signOut } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
@@ -60,33 +76,37 @@ export const AuthSession = () => {
           )}
         </HStack>
       </Center>
-      <Box>
+      <Box m='2'>
         {sessionData && (
-          <Table>
-            <Thead>
-              <Tr>
-                <Td>Name</Td>
-                <Td>Email</Td>
-                <Td>Expires</Td>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td textAlign={'center'}>
-                  <Image
-                    src={sessionData.user?.image ?? ''}
-                    alt={'avatar'}
-                    width={'20'}
-                    height={'20'}
-                    rounded={'full'}
-                  />
-                  {sessionData.user?.name}
-                </Td>
-                <Td>{sessionData.user?.email}</Td>
-                <Td>{sessionData.expires}</Td>
-              </Tr>
-            </Tbody>
-          </Table>
+          <TableContainer>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Td>Name</Td>
+                  <Td>Email</Td>
+                  <Td>Expires</Td>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td textAlign={'center'}>
+                    <Flex justify={'center'} flexDir={'column'} align={'center'}>
+                      <Image
+                        src={sessionData.user?.image ?? ''}
+                        alt={'avatar'}
+                        width={'20'}
+                        height={'20'}
+                        rounded={'full'}
+                      />
+                      <Text>{sessionData.user?.name}</Text>
+                    </Flex>
+                  </Td>
+                  <Td>{sessionData.user?.email}</Td>
+                  <Td>{sessionData.expires}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
         )}
       </Box>
     </>

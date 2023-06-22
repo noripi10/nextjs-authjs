@@ -6,6 +6,7 @@ import { client } from '@/libs/prisma';
 export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
   console.info({ searchParams });
+  console.info('req.url', req.url);
 
   const session = await getServerSession(authOptions);
   console.info({ session });
