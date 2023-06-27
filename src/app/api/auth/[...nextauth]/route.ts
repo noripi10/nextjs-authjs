@@ -49,6 +49,31 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET ?? '',
+  session: {
+    strategy: 'jwt',
+  },
+  callbacks: {
+    jwt: async ({ token, user, account }) => {
+      console.info({ token, user, account });
+      if (user) {
+        return { ...token, ...user };
+      }
+
+      return token;
+    },
+    session: async ({ session, token, user }) => {
+      console.info({ session, token, user });
+
+      session = {
+        ...session,
+        user: {
+          ...token,
+          ...user,
+        },
+      };
+      return session;
+    },
+  },
   debug: process.env.NODE_ENV !== 'production',
 };
 

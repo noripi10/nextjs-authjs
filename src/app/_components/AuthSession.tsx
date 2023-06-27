@@ -24,6 +24,8 @@ import { useEffect, useState } from 'react';
 
 export const AuthSession = () => {
   const { data: sessionData } = useSession();
+  console.info({ sessionData });
+
   const [providers, setProviders] = useState<{ provider: string; linked: boolean }[]>();
   useEffect(() => {
     const init = async () => {
@@ -82,6 +84,7 @@ export const AuthSession = () => {
             <Table>
               <Thead>
                 <Tr>
+                  <Td>Id</Td>
                   <Td>Name</Td>
                   <Td>Email</Td>
                   <Td>Expires</Td>
@@ -89,6 +92,7 @@ export const AuthSession = () => {
               </Thead>
               <Tbody>
                 <Tr>
+                  <Td>{sessionData.user?.id}</Td>
                   <Td textAlign={'center'}>
                     <Flex justify={'center'} flexDir={'column'} align={'center'}>
                       <Image

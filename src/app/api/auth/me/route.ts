@@ -13,8 +13,7 @@ export const GET = async (req: Request) => {
 
   const me = await client.user.findFirst({
     where: {
-      name: session?.user?.name,
-      email: session?.user?.email,
+      id: session?.user?.id,
     },
   });
 
