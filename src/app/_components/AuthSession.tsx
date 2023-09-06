@@ -42,8 +42,14 @@ export const AuthSession = () => {
           linked: linkProviders.some((e: string) => e === info.provider),
         }));
 
-        console.info({ providers, me });
+        console.info({ me });
 
+        setProviders(providers);
+      } else {
+        console.info('No sessionData');
+        const res1 = await getProviders();
+        console.info(res1);
+        let providers = Object.keys(res1 ?? {}).map((provider) => ({ provider, linked: false }));
         setProviders(providers);
       }
     };
@@ -53,18 +59,20 @@ export const AuthSession = () => {
 
   return (
     <>
-      <Center flex={1} flexDir={'column'} py={2}>
+      <Center flex={1} flexDir={'column'} py={10}>
         <HStack>
-          {sessionData ? (
+          {providers ? (
             <VStack>
-              <Button onClick={() => signOut()} _disabled={{ bgColor: 'gray' }}>
-                SingOut
-              </Button>
+              {sessionData && (
+                <Button onClick={() => signOut()} _disabled={{ bgColor: 'gray' }}>
+                  SingOut
+                </Button>
+              )}
 
               <HStack>
                 {providers?.map((e) => (
                   <Button key={e.provider} isDisabled={e.linked} onClick={() => signIn(e.provider)}>
-                    Link {e.provider.toUpperCase()}
+                    SignIn {e.provider.toUpperCase()}
                   </Button>
                 ))}
               </HStack>
@@ -78,7 +86,7 @@ export const AuthSession = () => {
           )}
         </HStack>
       </Center>
-      <Box m='2'>
+      <Box m='2' py='10'>
         {sessionData && (
           <TableContainer>
             <Table>

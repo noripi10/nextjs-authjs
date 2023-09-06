@@ -28,6 +28,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 type ItemProp = {
   id: string;
   name: string;
+  overlay?: boolean;
 };
 
 const generateItems = (range: number) => {
@@ -38,7 +39,7 @@ const generateItems = (range: number) => {
   }));
 };
 
-const SortItem: FC<ItemProp> = ({ id, name }) => {
+const SortItem: FC<ItemProp> = ({ id, name, overlay = false }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
   });
@@ -51,7 +52,7 @@ const SortItem: FC<ItemProp> = ({ id, name }) => {
     listStyle: 'none',
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.3 : 1,
+    opacity: !overlay && isDragging ? 0.3 : 1,
   };
 
   return (
@@ -159,7 +160,7 @@ export const SortableContainer = () => {
               </SortableContext>
 
               <DragOverlay>
-                {activeId && acitveItem && <SortItem id={acitveItem.id} name={acitveItem.name} />}
+                {activeId && acitveItem && <SortItem id={acitveItem.id} name={acitveItem.name} overlay />}
               </DragOverlay>
             </DndContext>
           </Box>

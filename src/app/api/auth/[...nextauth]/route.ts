@@ -7,6 +7,9 @@ import GoogleProvider from 'next-auth/providers/google';
 
 import { client } from '@/libs/prisma';
 
+// ●Provider情報の取得方法
+// localhost:3000/api/auth/providers
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(client),
   providers: [
