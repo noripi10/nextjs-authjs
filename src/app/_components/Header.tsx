@@ -8,7 +8,7 @@ export const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box as={'header'} bgColor={'gray.800'} p={2} position={'sticky'} top={0}>
+    <Box as={'header'} bgColor={'gray.800'} p={2} position={'sticky'} top={0} zIndex={1000}>
       <Container maxW={'container.lg'}>
         <HStack>
           <Heading color={'#fff'} fontSize={'2xl'} flexGrow={1}>

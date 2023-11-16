@@ -58,13 +58,13 @@ export const AuthSession = () => {
   }, [sessionData]);
 
   return (
-    <>
-      <Center flex={1} flexDir={'column'} py={10}>
+    <VStack>
+      <Center flex={1} flexDir={'column'} pt={4}>
         <HStack>
           {providers ? (
             <VStack>
               {sessionData && (
-                <Button onClick={() => signOut()} _disabled={{ bgColor: 'gray' }}>
+                <Button onClick={() => signOut({ redirect: true })} _disabled={{ bgColor: 'gray' }}>
                   SingOut
                 </Button>
               )}
@@ -121,6 +121,6 @@ export const AuthSession = () => {
           </TableContainer>
         )}
       </Box>
-    </>
+    </VStack>
   );
 };
