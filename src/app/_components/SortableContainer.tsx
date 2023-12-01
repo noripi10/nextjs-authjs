@@ -19,9 +19,9 @@ import {
   SortableContext,
   sortableKeyboardCoordinates,
   horizontalListSortingStrategy,
-  verticalListSortingStrategy,
   useSortable,
 } from '@dnd-kit/sortable';
+import { restrictToWindowEdges, restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -148,6 +148,7 @@ export const SortableContainer = () => {
                   return arrayMove(prev, oldIndex, newIndex);
                 });
               }}
+              modifiers={[restrictToWindowEdges, restrictToHorizontalAxis]}
             >
               <SortableContext items={items} strategy={horizontalListSortingStrategy}>
                 <Center flexDir={'column'}>
